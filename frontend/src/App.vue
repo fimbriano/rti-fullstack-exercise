@@ -5,6 +5,10 @@ import { onMounted, ref } from 'vue'
 import barChart from '@/components/barChart.vue'
 import boxPlot from '@/components/boxPlot.vue'
 import percentBarChart from './components/percentBarChart.vue'
+import { useRootStore } from './stores/root'
+
+// access store
+const rootStore = useRootStore()
 
 // creating a reactive variable
 // https://vuejs.org/api/reactivity-core.html#ref
@@ -14,7 +18,8 @@ let summStats = ref({})
 // using the mounted lifecycle hook to fetch our data
 // https://vuejs.org/api/composition-api-lifecycle.html
 onMounted(async () => {
-  censusData.value = await fetch('http://localhost:8000/census').then((census) => census.json())
+  //censusData.value = await fetch('http://localhost:8000/census').then((census) => census.json())
+  rootStore.censusData = await fetch('http://localhost:8000/census').then((census) => census.json())
   summStats.value = await fetch('http://localhost:8000/summary-stats').then((summ) =>
     summ.json()
   )
@@ -36,10 +41,10 @@ onMounted(async () => {
       <div v-if="censusData.length">
         <div class="row">
           <div class="col-6">
-            <barChart :censusData="censusData" :category="'education_level'" />
+            <barChart :category="'education_level'" />
           </div>
           <div class="col-6">
-            <barChart :censusData="censusData" :category="'race'" />
+            <barChart :category="'race'" />
           </div>
         </div>
       </div>

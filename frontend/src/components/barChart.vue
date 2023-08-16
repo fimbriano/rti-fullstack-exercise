@@ -1,21 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { Chart } from 'chart.js/auto'
+import { useRootStore } from '../stores/root'
 
 // defining a prop on the component
 // this allows us to get the censusData object transmitted down
 // from our parent, App.vue
 // https://vuejs.org/guide/components/props.html
 const props = defineProps({
-  censusData: {
-    required: true,
-    type: Array
-  },
   category: {
     required: true,
     type: String
   }
 })
+
+// access store
+const rootStore = useRootStore();
 
 // using a template ref instead of the DOM element
 // https://vuejs.org/guide/essentials/template-refs.html
@@ -26,7 +26,7 @@ const chartCanvas = ref(null)
 // https://vuejs.org/guide/essentials/lifecycle.html#lifecycle-diagram
 onMounted(() => {
   // get the categories from the data
-  const categories = props.censusData.reduce((acc, datum) => {
+  const categories = rootStore.censusData.reduce((acc, datum) => {
     if (!acc.includes(datum[props.category])) {
       acc.push(datum[props.category])
     }
@@ -40,7 +40,7 @@ onMounted(() => {
   const dataset = {
     label: props.category,
     data: categories.map((category) => {
-      return props.censusData.filter((datum) => datum[props.category] === category).length
+      return rootStore.censusData.filter((datum) => datum[props.category] === category).length
     })
   }
 

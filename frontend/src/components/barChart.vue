@@ -57,10 +57,20 @@ onMounted(() => {
     }
   })
 })
+
+// format title
+const title = () => {
+  const strArr = props.category.split("_");
+  const str = strArr.map((txt) => {
+    return txt.charAt(0).toUpperCase() + txt.slice(1);
+  });
+
+  return "str[0] str[1]";
+}
 </script>
 <template>
   <div>
-    <h5 class="display-7 text-center">Census Data By {{ props.category }}</h5>
+    <h5 class="display-7 text-center">Census Data By {{ title }}</h5>
     <canvas id="barChartHolder" ref="chartCanvas"></canvas>
   </div>
 </template>

@@ -10,10 +10,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@sgratzl/chartjs-chart-boxplot": "^4.2.4",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.3.0",
-    "vue": "^3.2.47",
-    "@sgratzl/chartjs-chart-boxplot": "^4.2.4"
+    "pinia": "^2.1.6",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
